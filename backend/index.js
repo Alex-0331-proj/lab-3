@@ -317,6 +317,20 @@ app.get("/api/auth/me", async (req, res) => {
   }
 });
 
+app.get('/api/dangerously-clean-db-2026', async (req, res) => {
+  try {
+    await dbRun('DELETE FROM links');
+    await dbRun('DELETE FROM users');
+    await dbRun('DELETE FROM sqlite_sequence WHERE name="links" OR name="users"');
+    guestLinks = []; 
+    
+    return res.send('<h1 style="color: green; text-align: center; margin-top: 50px;">Базу даних успішно очищено!</h1>');
+  } catch (error) {
+    console.error("Помилка очищення БД:", error);
+    return res.status(500).send('Помилка сервера при спробі очистити базу даних.');
+  }
+});
+
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`=== БЕКЕНД ShortyURL РАБОТАЕТ НА ПОРТУ ${PORT} ===`);
 });
