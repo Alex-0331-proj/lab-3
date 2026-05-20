@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif !important;
+  background-color: #f8f9fa;
+}
+
+.navbar-brand {
+  font-weight: 700;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+@media (max-width: 576px) {
+  .btn-lg {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+  }
+  h1 {
+    font-size: 2rem;
+  }
+}
+
+@import "bootstrap/scss/bootstrap";
