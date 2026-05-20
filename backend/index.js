@@ -6,7 +6,7 @@ import cookieParser from "cookie-parser";
 import { dbQuery, dbRun } from "./db.js";
 
 const app = express();
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 const JWT_SECRET = "SUPER_SECRET_KEY_SHORTY_URL_2026";
 
 app.use(
