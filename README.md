@@ -1,5 +1,6 @@
 ShortyURL — URL Shortener Service
 A full-stack web application designed for instantaneous shortening of long URL addresses. The project was initially designed following the MVC (Model-View-Controller) architectural pattern and has been successfully migrated to a modern, reactive component-based SPA (Single Page Application) stack.
+##Link to production: https://alex-lab-3.netlify.app/
 
 🛠 Technology Stack
 Frontend
