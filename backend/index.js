@@ -14,6 +14,7 @@ app.use(
     origin: [
       "http://localhost:5173",
       "http://127.0.0.1:5173",
+      "https://alex-lab-3.netlify.app",
       "https://lab-3-kv1r.onrender.com",
     ],
     credentials: true,
