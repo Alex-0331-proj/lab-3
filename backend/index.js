@@ -11,7 +11,11 @@ const JWT_SECRET = "SUPER_SECRET_KEY_SHORTY_URL_2026";
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
+    origin: [
+      "http://localhost:5173", 
+      "http://127.0.0.1:5173",
+      "https://lab-3-kv1r.onrender.com"
+    ],
     credentials: true,
   }),
 );
@@ -59,13 +63,17 @@ app.get('/api/links', decodeUser, async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const offset = (page - 1) * ITEMS_PER_PAGE;
 
+  const host = req.get('host');
+  const protocol = req.protocol;
+  const baseRedirectUrl = `${protocol}://${host}/r/`;
+
   if (req.user) {
     try {
       const countResult = await dbQuery('SELECT COUNT(*) as total FROM links WHERE user_id = ?', [req.user.userId]);
       const totalCount = countResult[0].total;
 
       const data = await dbQuery(
-        'SELECT id, long_url as long, ("http://localhost:4000/r/" || short_code) as short FROM links WHERE user_id = ? ORDER BY id DESC LIMIT ? OFFSET ?',
+        `SELECT id, long_url as long, ('${baseRedirectUrl}' || short_code) as short FROM links WHERE user_id = ? ORDER BY id DESC LIMIT ? OFFSET ?`,
         [req.user.userId, ITEMS_PER_PAGE, offset]
       );
 
@@ -83,7 +91,7 @@ app.get('/api/links', decodeUser, async (req, res) => {
     const paginatedData = guestLinks.slice(offset, offset + ITEMS_PER_PAGE).map(l => ({
       id: l.id,
       long: l.long_url,
-      short: `http://localhost:4000/r/${l.short_code}`
+      short: `${baseRedirectUrl}${l.short_code}`
     }));
 
     return res.json({
